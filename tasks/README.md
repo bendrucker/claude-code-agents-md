@@ -2,6 +2,8 @@
 
 ## Task Lifecycle
 
+Treat each task file like an issue. You should also use the TodoWrite tool to maintain a detailed list of individual implementation tasks as you work. 
+
 **Task files are temporary.** When a task is complete:
 1. Ensure implementation is documented in README.md or CLAUDE.md
 2. Delete the task file
@@ -31,7 +33,7 @@ Tests define the contract, implementation satisfies it, CI enforces it.
 
 ## Test Infrastructure
 
-- [ ] Test harness and fixtures - [details](./test-infrastructure.md)
+- [x] Test harness and fixtures - [details](./test-infrastructure.md)
 - [ ] End-to-end test cases - [details](./e2e-testing.md)
 
 ---
