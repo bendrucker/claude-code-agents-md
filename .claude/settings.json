@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:agents.md)",
+      "mcp__github__issue_read"
+    ]
+  }
+}
