@@ -56,23 +56,18 @@ function outputContext(eventName, content) {
             additionalContext: content,
         },
     };
-    console.log(JSON.stringify(output));
+    process.stdout.write(JSON.stringify(output));
     process.exit(0);
 }
 function handleSessionStart(input) {
     const { session_id, cwd, source } = input;
-    console.error('[agents-md] handleSessionStart source:', source);
     if (!['startup', 'clear', 'compact'].includes(source)) {
-        console.error('[agents-md] Skipping: source not in allowed list');
         process.exit(0);
     }
     const agentsPath = path.join(cwd, 'AGENTS.md');
-    console.error('[agents-md] Looking for:', agentsPath);
     if (!fs.existsSync(agentsPath)) {
-        console.error('[agents-md] File not found');
         process.exit(0);
     }
-    console.error('[agents-md] Found AGENTS.md, reading...');
     if (isAlreadyInjected(session_id, agentsPath)) {
         process.exit(0);
     }
@@ -103,9 +98,7 @@ function handlePostToolUse(input) {
 function main() {
     try {
         const stdin = fs.readFileSync(0, 'utf-8');
-        console.error('[agents-md] Received input:', stdin.substring(0, 200));
         const input = JSON.parse(stdin);
-        console.error('[agents-md] Event:', input.hook_event_name, 'cwd:', input.cwd);
         switch (input.hook_event_name) {
             case 'SessionStart':
                 handleSessionStart(input);

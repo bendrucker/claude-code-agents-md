@@ -24,7 +24,6 @@ describe('AGENTS.md Plugin', () => {
       cwd: path.join(FIXTURES_DIR, 'nested'),
       prompt: 'Read the file subdir/file.txt, then tell me the magic number',
       pluginPath: PLUGIN_PATH,
-      trackAgentsInjection: true,
     });
 
     assertToolUsed(messages, 'Read');

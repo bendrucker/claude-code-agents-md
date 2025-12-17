@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env -S node --experimental-strip-types --no-warnings
 
 import * as fs from 'fs';
 import * as path from 'path';

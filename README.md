@@ -39,31 +39,7 @@ project/
 
 When Claude reads a file in `src/api/`, it receives the `src/api/AGENTS.md` content. The closest `AGENTS.md` to the file being read wins.
 
-### Example AGENTS.md
-
-```markdown
-# API Module
-
-## Conventions
-
-- All endpoints return JSON
-- Use `snake_case` for field names
-- Errors use RFC 7807 format
-
-## Testing
-
-Run `npm test -- --grep api` to test this module.
-```
-
-See the [AGENTS.md standard](https://agents.md) for more guidance.
-
-## Troubleshooting
-
-**Plugin not loading**: Verify installation with `claude plugin list`. The plugin should appear as `agents-md`.
-
-**AGENTS.md not injected**: Check that the file is named exactly `AGENTS.md` (case-sensitive). The plugin only looks for this exact filename.
-
-**State file location**: Session state is stored in `/tmp/claude-agents-md-{session_id}.json`. This tracks which files have been injected to prevent duplicates.
+See the [AGENTS.md standard](https://agents.md) for guidance on file contents.
 
 ## License
 
