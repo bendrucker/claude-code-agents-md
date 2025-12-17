@@ -1,6 +1,6 @@
 # claude-code-agents-md
 
-[![Test](https://github.com/bendrucker/claude-code-agents-md/actions/workflows/test.yml/badge.svg)](https://github.com/bendrucker/claude-code-agents-md/actions/workflows/test.yml)
+[![tests](https://github.com/bendrucker/claude-code-agents-md/actions/workflows/test.yml/badge.svg)](https://github.com/bendrucker/claude-code-agents-md/actions/workflows/test.yml)
 
 > Claude Code plugin for reading [AGENTS.md](https://agents.md) files.
 
