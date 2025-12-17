@@ -25,4 +25,3 @@ jobs:
         run: npm test
         env:
           CLAUDE_OAUTH_TOKEN: ${{ secrets.CLAUDE_OAUTH_TOKEN }}
-          NODE_OPTIONS: --experimental-strip-types --no-warnings

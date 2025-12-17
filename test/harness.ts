@@ -56,8 +56,19 @@ export async function runTest(options: TestOptions) {
     queryOptions.plugins = [{ type: 'local', path: options.pluginPath }];
   }
 
-  for await (const message of query({ prompt: options.prompt, options: queryOptions })) {
-    messages.push(message);
+  try {
+    for await (const message of query({ prompt: options.prompt, options: queryOptions })) {
+      messages.push(message);
+    }
+  } catch (error) {
+    console.error('\n=== Claude Code Process Failed ===');
+    console.error('Error:', error);
+    console.error('\n=== Messages Received ===');
+    for (const msg of messages) {
+      console.error(JSON.stringify(msg, null, 2));
+    }
+    console.error('\n=== End Debug Output ===\n');
+    throw error;
   }
 
   return { messages, injectedAgents };
