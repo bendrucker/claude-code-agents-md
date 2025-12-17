@@ -1,0 +1,3 @@
+This is a simple test file with no AGENTS.md in its hierarchy.
+
+It contains some sample text that can be summarized.

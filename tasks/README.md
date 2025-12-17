@@ -34,25 +34,25 @@ Tests define the contract, implementation satisfies it, CI enforces it.
 ## Test Infrastructure
 
 - [x] Test harness and fixtures - [details](./test-infrastructure.md)
-- [ ] End-to-end test cases - [details](./e2e-testing.md)
+- [x] End-to-end test cases - [details](./e2e-testing.md)
 
 ---
 
 ## Core Implementation
 
-- [ ] `tsconfig.json` - [details](./typescript-config.md)
-- [ ] `.claude-plugin/plugin.json` - [details](./plugin-manifest.md)
-- [ ] `hooks/hooks.json` - [details](./hooks-configuration.md)
-- [ ] `hook.ts` - [details](./hook-implementation.md)
+- [x] `tsconfig.json` - [details](./typescript-config.md)
+- [x] `.claude-plugin/plugin.json` - [details](./plugin-manifest.md)
+- [x] `hooks/hooks.json` - [details](./hooks-configuration.md)
+- [x] `hook.ts` - [details](./hook-implementation.md)
 
 ---
 
 ## CI Configuration
 
-- [ ] GitHub Actions workflow - [details](./github-actions.md)
+- [x] GitHub Actions workflow - [details](./github-actions.md)
 
 ---
 
 ## Documentation
 
-- [ ] Update `README.md` - [details](./documentation.md)
+- [x] Update `README.md` - [details](./documentation.md)

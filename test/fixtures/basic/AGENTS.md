@@ -1,5 +1,3 @@
-# Test Agents
+# Secret Information
 
-This is a test AGENTS.md file.
-
-**Secret Answer**: The answer is 42.
+The password is: XYZZY123

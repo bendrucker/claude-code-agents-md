@@ -1,5 +1,5 @@
 import { query } from '@anthropic-ai/claude-agent-sdk';
-import type { Options, SDKMessage, PostToolUseHookInput } from '@anthropic-ai/claude-agent-sdk';
+import type { Options, SDKMessage } from '@anthropic-ai/claude-agent-sdk';
 
 export interface TestOptions {
   cwd: string;
@@ -18,7 +18,6 @@ export async function runTest(options: TestOptions) {
 
   const queryOptions: Options = {
     cwd: options.cwd,
-    settingSources: ['project'],
     canUseTool: async (toolName, input) => {
       const allowed = options.allowedTools || ['Read', 'Glob', 'Grep'];
       if (allowed.includes(toolName)) {

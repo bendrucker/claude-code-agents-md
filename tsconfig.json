@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "nodenext",
+    "lib": ["ES2022"],
+    "moduleResolution": "nodenext",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "outDir": ".claude-plugin",
+    "rootDir": ".claude-plugin",
+    "declaration": false
+  },
+  "include": [
+    ".claude-plugin/**/*.ts"
+  ],
+  "exclude": [
+    "test/**/*.ts"
+  ]
+}

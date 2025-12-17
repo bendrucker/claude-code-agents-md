@@ -1,0 +1,10 @@
+{
+  "name": "agents-md",
+  "version": "1.0.0",
+  "description": "Loads AGENTS.md files automatically into Claude Code sessions",
+  "author": {
+    "name": "Ben Drucker",
+    "url": "https://github.com/bendrucker"
+  },
+  "hooks": "./hooks/hooks.json"
+}
