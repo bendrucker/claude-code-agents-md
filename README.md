@@ -6,6 +6,10 @@
 
 Loads project instructions from `AGENTS.md` files automatically, enabling Claude Code to work with projects using this open standard.
 
+## Requirements
+
+- Node.js 22.18.0 or later (for native TypeScript support)
+
 ## Install
 
 ```bash
