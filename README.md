@@ -41,6 +41,20 @@ When Claude reads a file in `src/api/`, it receives the `src/api/AGENTS.md` cont
 
 See the [AGENTS.md standard](https://agents.md) for guidance on file contents.
 
+## AGENTS.md vs CLAUDE.md
+
+Claude Code natively supports `CLAUDE.md` files for project instructions. This plugin adds support for `AGENTS.md`, an open standard.
+
+| Feature | CLAUDE.md | AGENTS.md |
+|---------|-----------|-----------|
+| Built into Claude Code | Yes | Via plugin |
+| Works with other AI tools | No | Yes |
+| Hierarchical loading | Yes | Yes |
+| Injected at session start | Yes | Yes |
+| Injected on file read | No | Yes |
+
+Use `AGENTS.md` if you work with multiple AI coding tools and want portable project instructions. Use `CLAUDE.md` if you only use Claude Code and prefer zero configuration.
+
 ## License
 
 [MIT © Ben Drucker](LICENSE)
