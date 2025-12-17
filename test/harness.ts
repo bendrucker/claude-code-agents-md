@@ -61,13 +61,14 @@ export async function runTest(options: TestOptions) {
       messages.push(message);
     }
   } catch (error) {
-    console.error('\n=== Claude Code Process Failed ===');
-    console.error('Error:', error);
-    console.error('\n=== Messages Received ===');
-    for (const msg of messages) {
-      console.error(JSON.stringify(msg, null, 2));
-    }
-    console.error('\n=== End Debug Output ===\n');
+    const errorDetails = {
+      error: error instanceof Error ? { message: error.message, stack: error.stack } : error,
+      messagesReceived: messages.length,
+      cwd: options.cwd,
+      pluginPath: options.pluginPath,
+    };
+    console.error('Claude Code process failed:', JSON.stringify(errorDetails, null, 2));
+    console.error('Messages:', JSON.stringify(messages, null, 2));
     throw error;
   }
 
