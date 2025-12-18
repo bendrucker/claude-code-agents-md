@@ -7,7 +7,7 @@
   "plugins": [
     {
       "name": "agents-md",
-      "source": ".",
+      "source": "./../",
       "description": "Loads AGENTS.md files automatically into Claude Code sessions",
       "version": "1.0.0",
       "author": {
