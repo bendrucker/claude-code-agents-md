@@ -6,5 +6,8 @@
     "name": "Ben Drucker",
     "url": "https://github.com/bendrucker"
   },
+  "repository": "https://github.com/bendrucker/claude-code-agents-md",
+  "license": "MIT",
+  "keywords": ["agents", "agents-md", "instructions"],
   "hooks": "./hooks/hooks.json"
 }

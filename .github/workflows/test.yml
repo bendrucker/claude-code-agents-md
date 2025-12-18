@@ -21,6 +21,9 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Validate plugin
+        run: npx @anthropic-ai/claude-code plugin validate .
+
       - name: Run tests
         run: npm test
         env:

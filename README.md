@@ -12,8 +12,19 @@ Loads project instructions from `AGENTS.md` files automatically, enabling Claude
 
 ## Install
 
+### Direct Install
+
 ```bash
 claude plugin install github:bendrucker/claude-code-agents-md
+```
+
+### Via Marketplace
+
+Add the marketplace, then install the plugin:
+
+```bash
+claude plugin marketplace add bendrucker/claude-code-agents-md
+claude plugin install agents-md
 ```
 
 ## How It Works
