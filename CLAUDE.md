@@ -26,7 +26,8 @@ Claude Code plugin that loads `AGENTS.md` files using hooks.
 
 - `hook.ts`: Hook script that finds and reads `AGENTS.md`
   - Use only eraseable TypeScript syntax to allow execution via `node`
-- `plugin.json`: Plugin manifest declaring the hook
+- `hooks/hooks.json`: Hook registration
+- `.claude-plugin/plugin.json`: Plugin manifest
 
 ## References
 
