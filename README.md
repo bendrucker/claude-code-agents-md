@@ -20,11 +20,11 @@ claude plugin install github:bendrucker/claude-code-agents-md
 
 ### Via Marketplace
 
-Add the marketplace, then install the plugin:
+Add the [bendrucker marketplace](https://github.com/bendrucker/claude), then install the plugin:
 
 ```bash
-claude plugin marketplace add bendrucker/claude-code-agents-md
-claude plugin install agents-md
+claude plugin marketplace add bendrucker/claude
+claude plugin install bendrucker:agents-md
 ```
 
 ## How It Works
