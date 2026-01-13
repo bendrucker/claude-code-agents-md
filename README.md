@@ -24,7 +24,7 @@ Add the [bendrucker marketplace](https://github.com/bendrucker/claude), then ins
 
 ```bash
 claude plugin marketplace add bendrucker/claude
-claude plugin install bendrucker:agents-md
+claude plugin install agents-md@bendrucker
 ```
 
 ## How It Works
