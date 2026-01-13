@@ -5,7 +5,7 @@ import { runTest, getAssistantResponse } from './harness.ts';
 import { assertResponseContains, assertToolUsed } from './assertions.ts';
 
 const FIXTURES_DIR = path.join(import.meta.dirname, 'fixtures');
-const PLUGIN_PATH = path.join(import.meta.dirname, '..', '.claude-plugin');
+const PLUGIN_PATH = path.join(import.meta.dirname, '..');
 
 describe('AGENTS.md Plugin', () => {
   it('injects AGENTS.md content at session start', async () => {
