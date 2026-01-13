@@ -27,39 +27,6 @@ claude plugin marketplace add bendrucker/claude-code-agents-md
 claude plugin install agents-md
 ```
 
-## Known Issue
-
-Due to [a bug in Claude Code](https://github.com/anthropics/claude-code/issues/11509), plugin hooks are not registered. Until this is fixed, you must manually add the hooks to your user settings (`~/.claude/settings.json`):
-
-```json
-{
-  "hooks": {
-    "SessionStart": [
-      {
-        "matcher": "startup|clear|compact",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "node ~/.claude/plugins/cache/agents-md-marketplace/agents-md/1.0.0/agents-md-marketplace/.claude-plugin/hook.ts"
-          }
-        ]
-      }
-    ],
-    "PostToolUse": [
-      {
-        "matcher": "Read",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "node ~/.claude/plugins/cache/agents-md-marketplace/agents-md/1.0.0/agents-md-marketplace/.claude-plugin/hook.ts"
-          }
-        ]
-      }
-    ]
-  }
-}
-```
-
 ## How It Works
 
 The plugin uses two hooks to inject `AGENTS.md` content into Claude Code sessions:
