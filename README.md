@@ -8,7 +8,7 @@ Loads project instructions from `AGENTS.md` files automatically, enabling Claude
 
 ## Why
 
-This plugin is ideal for power users who work across many repositories and want consistent `AGENTS.md` support without per-project setup. It's also well-suited for large monorepos where symlinking `AGENTS.md` to `CLAUDE.md` in every subdirectory is impractical.
+This plugin is targeted at users who work across many repositories and want consistent `AGENTS.md` support without per-project setup. It's also well-suited for large monorepos where symlinking `AGENTS.md` to `CLAUDE.md` in every subdirectory is less practical.
 
 With the plugin installed, `AGENTS.md` files load automatically as you navigate your codebase. Subdirectory files take precedence over parent files, giving you hierarchical context without manual symlink management.
 
