@@ -6,6 +6,20 @@
 
 Loads project instructions from `AGENTS.md` files automatically, enabling Claude Code to work with projects using this open standard.
 
+## Why
+
+If you work in a small number of repositories, symlinking `AGENTS.md` to `CLAUDE.md` is probably fine:
+
+```sh
+ln -s AGENTS.md CLAUDE.md
+```
+
+This plugin is intended for users who work across many repositories and want consistent `AGENTS.md` support without per-project setup. It's also useful for large monorepos where linking `AGENTS.md` to `CLAUDE.md` in every subdirectory is harder to reliably maintain.
+
+With the plugin installed, `AGENTS.md` files load automatically as you navigate your codebase. Subdirectory files take precedence over parent files, giving you hierarchical context without manual symlink management.
+
+This plug-in tries to adhere as closely as possible to the `AGENTS.md` spec, which has [subtle differences from `CLAUDE.md`](#agentsmd-vs-claudemd). 
+
 ## Requirements
 
 - Node.js 22.18.0 or later (for native TypeScript support)
