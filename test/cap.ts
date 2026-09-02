@@ -1,0 +1,46 @@
+import { describe, it } from 'node:test';
+import * as assert from 'node:assert';
+import { capContent } from '../hook.ts';
+
+const NOTICE = '[AGENTS.md truncated';
+
+describe('capContent', () => {
+  const cases = [
+    {
+      name: 'injects the whole file when under cap',
+      content: 'short content',
+      maxChars: 8000,
+      expectTruncated: false,
+    },
+    {
+      name: 'truncates at a paragraph boundary when over cap',
+      content: `${'a'.repeat(50)}\n\n${'b'.repeat(50)}`,
+      maxChars: 60,
+      expectTruncated: true,
+      expectBoundary: 'a'.repeat(50),
+    },
+    {
+      name: 'truncates at a heading boundary when over cap',
+      content: `${'a'.repeat(50)}\n# Next section\n${'b'.repeat(50)}`,
+      maxChars: 60,
+      expectTruncated: true,
+      expectBoundary: 'a'.repeat(50),
+    },
+  ];
+
+  for (const testCase of cases) {
+    it(testCase.name, () => {
+      const result = capContent(testCase.content, testCase.maxChars, '/tmp/AGENTS.md');
+
+      if (!testCase.expectTruncated) {
+        assert.strictEqual(result, testCase.content);
+        return;
+      }
+
+      assert.ok(result.includes(NOTICE), 'expected truncation notice');
+      assert.ok(result.includes('/tmp/AGENTS.md'), 'expected notice to point at the file');
+      assert.ok(result.startsWith(testCase.expectBoundary as string), 'expected cut at boundary');
+      assert.ok(!result.includes('b'.repeat(50)), 'expected content past the boundary to be dropped');
+    });
+  }
+});

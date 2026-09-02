@@ -82,6 +82,28 @@ function findClosestAgentsMd(filePath: string, projectRoot: string): string | nu
   return null;
 }
 
+const DEFAULT_MAX_CHARS = 8000;
+
+function getMaxChars(): number {
+  const configured = Number(process.env.AGENTS_MD_MAX_CHARS);
+  return Number.isFinite(configured) && configured > 0 ? configured : DEFAULT_MAX_CHARS;
+}
+
+// Cuts at the last paragraph or heading break before maxChars so we don't
+// truncate mid-sentence, then appends a notice pointing at the full file.
+function capContent(content: string, maxChars: number, filePath: string): string {
+  if (content.length <= maxChars) {
+    return content;
+  }
+
+  const head = content.slice(0, maxChars);
+  const boundary = Math.max(head.lastIndexOf('\n\n'), head.lastIndexOf('\n#'));
+  const cut = boundary > 0 ? boundary : maxChars;
+  const truncated = content.slice(0, cut).trimEnd();
+
+  return `${truncated}\n\n[AGENTS.md truncated at ${maxChars} characters. Read the full file at ${filePath}]`;
+}
+
 function outputContext(eventName: string, content: string): void {
   const output: HookOutput = {
     hookSpecificOutput: {
@@ -111,7 +133,7 @@ function handleSessionStart(input: HookInput): void {
 
   const content = fs.readFileSync(agentsPath, 'utf-8');
   saveInjectedPath(session_id, agentsPath);
-  outputContext('SessionStart', content);
+  outputContext('SessionStart', capContent(content, getMaxChars(), agentsPath));
 }
 
 function handlePostToolUse(input: HookInput): void {
@@ -137,7 +159,7 @@ function handlePostToolUse(input: HookInput): void {
 
   const content = fs.readFileSync(agentsPath, 'utf-8');
   saveInjectedPath(session_id, agentsPath);
-  outputContext('PostToolUse', content);
+  outputContext('PostToolUse', capContent(content, getMaxChars(), agentsPath));
 }
 
 function main(): void {
@@ -163,4 +185,8 @@ function main(): void {
   }
 }
 
-main();
+if (import.meta.url === `file://${process.argv[1]}`) {
+  main();
+}
+
+export { capContent, getMaxChars, DEFAULT_MAX_CHARS };
