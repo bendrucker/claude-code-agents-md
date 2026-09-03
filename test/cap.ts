@@ -44,4 +44,11 @@ describe('capContent', () => {
       assert.ok(result.length <= testCase.maxChars, 'expected result to fit within the cap');
     });
   }
+
+  it('fits within the cap even when the notice alone would overflow it', () => {
+    const longPath = `/very/long/path/${'segment/'.repeat(20)}AGENTS.md`;
+    const result = capContent('a'.repeat(500), 40, longPath);
+
+    assert.ok(result.length <= 40, 'expected result to fit within the cap');
+  });
 });

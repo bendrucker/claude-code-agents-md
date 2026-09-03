@@ -92,13 +92,17 @@ function getMaxChars(): number {
 
 // Cuts at the last paragraph or heading break before maxChars so we don't
 // truncate mid-sentence, then appends a notice pointing at the full file.
-// The notice's own length comes out of the budget so the result still fits maxChars.
+// The notice's own length comes out of the budget so the result still fits maxChars,
+// even when a long filePath or a small maxChars would otherwise make the notice alone overflow it.
 function capContent(content: string, maxChars: number, filePath: string): string {
   if (content.length <= maxChars) {
     return content;
   }
 
-  const notice = `\n\n[AGENTS.md truncated at ${maxChars} characters. Read the full file at ${filePath}]`;
+  const notice = `\n\n[AGENTS.md truncated at ${maxChars} characters. Read the full file at ${filePath}]`.slice(
+    0,
+    maxChars
+  );
   const budget = Math.max(maxChars - notice.length, 0);
   const head = content.slice(0, budget);
   const boundary = Math.max(head.lastIndexOf('\n\n'), head.lastIndexOf('\n#'));
