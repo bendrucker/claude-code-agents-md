@@ -14,15 +14,15 @@ describe('capContent', () => {
     },
     {
       name: 'truncates at a paragraph boundary when over cap',
-      content: `${'a'.repeat(50)}\n\n${'b'.repeat(50)}`,
-      maxChars: 60,
+      content: `${'a'.repeat(50)}\n\n${'b'.repeat(300)}`,
+      maxChars: 200,
       expectTruncated: true,
       expectBoundary: 'a'.repeat(50),
     },
     {
       name: 'truncates at a heading boundary when over cap',
-      content: `${'a'.repeat(50)}\n# Next section\n${'b'.repeat(50)}`,
-      maxChars: 60,
+      content: `${'a'.repeat(50)}\n# Next section\n${'b'.repeat(300)}`,
+      maxChars: 200,
       expectTruncated: true,
       expectBoundary: 'a'.repeat(50),
     },
@@ -40,7 +40,8 @@ describe('capContent', () => {
       assert.ok(result.includes(NOTICE), 'expected truncation notice');
       assert.ok(result.includes('/tmp/AGENTS.md'), 'expected notice to point at the file');
       assert.ok(result.startsWith(testCase.expectBoundary as string), 'expected cut at boundary');
-      assert.ok(!result.includes('b'.repeat(50)), 'expected content past the boundary to be dropped');
+      assert.ok(!result.includes('bbb'), 'expected content past the boundary to be dropped');
+      assert.ok(result.length <= testCase.maxChars, 'expected result to fit within the cap');
     });
   }
 });

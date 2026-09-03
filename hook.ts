@@ -3,6 +3,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import * as os from 'os';
+import { pathToFileURL } from 'url';
 
 interface HookInput {
   session_id: string;
@@ -86,22 +87,25 @@ const DEFAULT_MAX_CHARS = 8000;
 
 function getMaxChars(): number {
   const configured = Number(process.env.AGENTS_MD_MAX_CHARS);
-  return Number.isFinite(configured) && configured > 0 ? configured : DEFAULT_MAX_CHARS;
+  return Number.isInteger(configured) && configured > 0 ? configured : DEFAULT_MAX_CHARS;
 }
 
 // Cuts at the last paragraph or heading break before maxChars so we don't
 // truncate mid-sentence, then appends a notice pointing at the full file.
+// The notice's own length comes out of the budget so the result still fits maxChars.
 function capContent(content: string, maxChars: number, filePath: string): string {
   if (content.length <= maxChars) {
     return content;
   }
 
-  const head = content.slice(0, maxChars);
+  const notice = `\n\n[AGENTS.md truncated at ${maxChars} characters. Read the full file at ${filePath}]`;
+  const budget = Math.max(maxChars - notice.length, 0);
+  const head = content.slice(0, budget);
   const boundary = Math.max(head.lastIndexOf('\n\n'), head.lastIndexOf('\n#'));
-  const cut = boundary > 0 ? boundary : maxChars;
+  const cut = boundary > 0 ? boundary : budget;
   const truncated = content.slice(0, cut).trimEnd();
 
-  return `${truncated}\n\n[AGENTS.md truncated at ${maxChars} characters. Read the full file at ${filePath}]`;
+  return `${truncated}${notice}`;
 }
 
 function outputContext(eventName: string, content: string): void {
@@ -185,7 +189,7 @@ function main(): void {
   }
 }
 
-if (import.meta.url === `file://${process.argv[1]}`) {
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
   main();
 }
 
