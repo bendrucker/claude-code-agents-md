@@ -3,6 +3,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import * as os from 'os';
+import { pathToFileURL } from 'url';
 
 interface HookInput {
   session_id: string;
@@ -82,6 +83,39 @@ function findClosestAgentsMd(filePath: string, projectRoot: string): string | nu
   return null;
 }
 
+const DEFAULT_MAX_CHARS = 8000;
+const MIN_MAX_CHARS = 500;
+
+function getMaxChars(): number {
+  const configured = Number(process.env.AGENTS_MD_MAX_CHARS);
+  if (!Number.isInteger(configured) || configured <= 0) {
+    return DEFAULT_MAX_CHARS;
+  }
+  return Math.max(configured, MIN_MAX_CHARS);
+}
+
+// Cuts at the last paragraph or heading break before maxChars so we don't
+// truncate mid-sentence, then appends a notice pointing at the full file.
+// The notice's own length comes out of the budget so the result still fits maxChars,
+// even when a long filePath or a small maxChars would otherwise make the notice alone overflow it.
+function capContent(content: string, maxChars: number, filePath: string): string {
+  if (content.length <= maxChars) {
+    return content;
+  }
+
+  const notice = `\n\n[AGENTS.md truncated at ${maxChars} characters. Read the full file at ${filePath}]`.slice(
+    0,
+    maxChars
+  );
+  const budget = Math.max(maxChars - notice.length, 0);
+  const head = content.slice(0, budget);
+  const boundary = Math.max(head.lastIndexOf('\n\n'), head.lastIndexOf('\n#'));
+  const cut = boundary > 0 ? boundary : budget;
+  const truncated = content.slice(0, cut).trimEnd();
+
+  return `${truncated}${notice}`;
+}
+
 function outputContext(eventName: string, content: string): void {
   const output: HookOutput = {
     hookSpecificOutput: {
@@ -111,7 +145,7 @@ function handleSessionStart(input: HookInput): void {
 
   const content = fs.readFileSync(agentsPath, 'utf-8');
   saveInjectedPath(session_id, agentsPath);
-  outputContext('SessionStart', content);
+  outputContext('SessionStart', capContent(content, getMaxChars(), agentsPath));
 }
 
 function handlePostToolUse(input: HookInput): void {
@@ -137,7 +171,7 @@ function handlePostToolUse(input: HookInput): void {
 
   const content = fs.readFileSync(agentsPath, 'utf-8');
   saveInjectedPath(session_id, agentsPath);
-  outputContext('PostToolUse', content);
+  outputContext('PostToolUse', capContent(content, getMaxChars(), agentsPath));
 }
 
 function main(): void {
@@ -163,4 +197,8 @@ function main(): void {
   }
 }
 
-main();
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
+  main();
+}
+
+export { capContent, getMaxChars, DEFAULT_MAX_CHARS };
