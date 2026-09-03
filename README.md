@@ -51,7 +51,7 @@ The plugin uses two hooks to inject `AGENTS.md` content into Claude Code session
 
 Each `AGENTS.md` is injected only once per session to avoid context duplication.
 
-Injected content is capped at 8000 characters by default, truncated at a heading or paragraph boundary with a notice pointing at the full file. Set `AGENTS_MD_MAX_CHARS` to change the cap.
+Injected content is capped at 8000 characters by default, truncated at a heading or paragraph boundary with a notice pointing at the full file. Set `AGENTS_MD_MAX_CHARS` to change the cap (minimum 500).
 
 ## Usage
 

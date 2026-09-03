@@ -84,10 +84,14 @@ function findClosestAgentsMd(filePath: string, projectRoot: string): string | nu
 }
 
 const DEFAULT_MAX_CHARS = 8000;
+const MIN_MAX_CHARS = 500;
 
 function getMaxChars(): number {
   const configured = Number(process.env.AGENTS_MD_MAX_CHARS);
-  return Number.isInteger(configured) && configured > 0 ? configured : DEFAULT_MAX_CHARS;
+  if (!Number.isInteger(configured) || configured <= 0) {
+    return DEFAULT_MAX_CHARS;
+  }
+  return Math.max(configured, MIN_MAX_CHARS);
 }
 
 // Cuts at the last paragraph or heading break before maxChars so we don't

@@ -1,6 +1,6 @@
 import { describe, it } from 'node:test';
 import * as assert from 'node:assert';
-import { capContent } from '../hook.ts';
+import { capContent, getMaxChars } from '../hook.ts';
 
 const NOTICE = '[AGENTS.md truncated';
 
@@ -50,5 +50,22 @@ describe('capContent', () => {
     const result = capContent('a'.repeat(500), 40, longPath);
 
     assert.ok(result.length <= 40, 'expected result to fit within the cap');
+  });
+});
+
+describe('getMaxChars', () => {
+  it('floors a configured value too small to leave room for content and the notice', () => {
+    const original = process.env.AGENTS_MD_MAX_CHARS;
+    process.env.AGENTS_MD_MAX_CHARS = '1';
+
+    try {
+      assert.ok(getMaxChars() >= 500, 'expected a floor above the pathological low value');
+    } finally {
+      if (original === undefined) {
+        delete process.env.AGENTS_MD_MAX_CHARS;
+      } else {
+        process.env.AGENTS_MD_MAX_CHARS = original;
+      }
+    }
   });
 });
