@@ -6,6 +6,32 @@
 
 Loads project instructions from `AGENTS.md` files automatically, enabling Claude Code to work with projects using this open standard.
 
+## Deprecated
+
+Claude Code reads `AGENTS.md` natively as of v2.1.277, through the built-in [`agents-md` mod](https://github.com/anthropics/claude-code/tree/main/mods/agents-md). This plugin is no longer maintained. Uninstall it:
+
+```sh
+claude plugin uninstall agents-md
+```
+
+Pick the behavior from `/config` under "Project instructions", or set it directly:
+
+```json
+{
+  "pluginConfigs": {
+    "agents-md@builtin": {
+      "options": { "instructionFiles": "claude-md-or-agents-md" }
+    }
+  }
+}
+```
+
+`claude-md-or-agents-md` is the default. A project with no `CLAUDE.md` of its own gets its `AGENTS.md` loaded in the same place `CLAUDE.md` would be. `claude-md-and-agents-md` loads both, up and down the tree.
+
+The mod covers what this plugin was for. It walks subdirectories on `Read` and attaches the nested `AGENTS.md` files, so monorepos get per-directory context without a symlink in every folder.
+
+The rest of this README describes the plugin as it was.
+
 ## Why
 
 If you work in a small number of repositories, symlinking `AGENTS.md` to `CLAUDE.md` is probably fine:
