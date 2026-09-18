@@ -1,6 +1,6 @@
 {
   "name": "agents-md",
-  "description": "Loads AGENTS.md files automatically into Claude Code sessions",
+  "description": "Deprecated: Claude Code reads AGENTS.md natively as of v2.1.277 via the built-in agents-md mod",
   "author": {
     "name": "Ben Drucker",
     "url": "https://github.com/bendrucker"
